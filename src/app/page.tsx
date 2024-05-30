@@ -30,7 +30,7 @@ export default function Home() {
       <main>
         <div className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-14 sm:pb-20">
           <Image
-            src="/images/back.avif"
+            src="/images/concert-background.avif"
             alt=""
             className="absolute inset-0 -z-10 object-cover blur-sm"
             objectFit="cover"
