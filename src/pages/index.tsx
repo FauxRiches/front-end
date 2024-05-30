@@ -8,32 +8,26 @@ export default function Home() {
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
-          <div className="flex lg:flex-1">
-            <a href="#" className="absolute -m-1.5 p-1.5 h-8 w-8">
-              <span className="sr-only">Logo de FauxRiches</span>
-              <Image
-                className="rounded-full"
-                src="/images/main_logo.png"
-                fill={true}
-                objectFit={"cover"}
-                alt=""
-              />
-            </a>
-          </div>
-          <div className="lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold leading-6 text-white">
-              Se connecter <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
+          {/* <a href="#" className="block -m-1.5 p-1.5"> */}
+            <Image
+              src="/images/main_logo.png"
+              alt="FauxRiches logo"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+          {/* </a> */}
+          <a href="#" className="block text-sm font-semibold leading-6 text-white">
+            Se connecter <span aria-hidden="true">&rarr;</span>
+          </a>
         </nav>
       </header>
       <main className="relative isolate h-full overflow-hidden bg-gray-900 pb-16 pt-14 sm:pb-20">
         <Image
           src="/images/concert-background.avif"
           alt=""
-          className="absolute inset-0 -z-10 brightness-50 blur-sm"
-          objectFit="cover"
           fill={true}
+          className="absolute inset-0 -z-10 brightness-50 blur-sm object-cover"
         />
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
