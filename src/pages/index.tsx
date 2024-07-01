@@ -1,8 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function Home() {
+  const { setTheme } = useTheme();
   return (
     <div className="overflow-hidden w-screen h-[100svh]">
       <header className="absolute inset-x-0 top-0 z-50">
@@ -19,7 +28,32 @@ export default function Home() {
             className="rounded-full"
           />
           {/* </a> */}
-          <Link href="/login" className="block text-sm font-semibold leading-6 text-white">
+          <div className="ml-auto mr-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                  <span className="sr-only">Toggle theme</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setTheme("light")}>
+                  Light
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("dark")}>
+                  Dark
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("system")}>
+                  System
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <Link
+            href="/login"
+            className="block text-sm font-semibold leading-6 text-white"
+          >
             Se connecter <span aria-hidden="true">&rarr;</span>
           </Link>
         </nav>
@@ -48,7 +82,6 @@ export default function Home() {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Button variant="default" size="lg">
-
                   Découvrir notre discographie
                 </Button>
                 <a
