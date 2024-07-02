@@ -30,21 +30,21 @@ const RouletteWheel = ({ state, dispatch }) => {
     if (wheel) {
       let row = `
       <div class='row flex'>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["1"]}' alt='1'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["14"]}' alt='14'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["2"]}' alt='2'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["13"]}' alt='13'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["3"]}' alt='3'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["12"]}' alt='12'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["4"]}' alt='4'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["0"]}' alt='0'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["11"]}' alt='11'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["5"]}' alt='5'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["10"]}' alt='10'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["6"]}' alt='6'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["9"]}' alt='9'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["7"]}' alt='7'/></div>
-        <div class='bg-muted card'><img class="max-h-[90%]" src='${images["8"]}' alt='8'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["1"]}' alt='1'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["14"]}' alt='14'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["2"]}' alt='2'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["13"]}' alt='13'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["3"]}' alt='3'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["12"]}' alt='12'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["4"]}' alt='4'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["0"]}' alt='0'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["11"]}' alt='11'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["5"]}' alt='5'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["10"]}' alt='10'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["6"]}' alt='6'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["9"]}' alt='9'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["7"]}' alt='7'/></div>
+        <div class='card'><img class="max-h-[90%]" src='${images["8"]}' alt='8'/></div>
       </div>
       `;
       for (let x = 0; x < 29; x++) {

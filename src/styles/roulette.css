@@ -3,11 +3,5 @@
   width:75px;
   margin:3px;
   padding: 5px;
-  border-radius:8px;
-  border-bottom:3px solid rgba(0,0,0,0.2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.5em;
-  user-select: none;
+  @apply rounded-lg flex items-center justify-center select-none bg-muted border border-primary shadow-sm shadow-secondary-foreground;
 }
