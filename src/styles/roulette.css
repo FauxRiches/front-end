@@ -1,7 +1,0 @@
-.card{
-  height:75px;
-  width:75px;
-  margin:3px;
-  padding: 5px;
-  @apply rounded-lg flex items-center justify-center select-none bg-muted border border-primary shadow-sm shadow-secondary-foreground;
-}
