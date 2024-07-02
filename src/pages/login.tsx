@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuthStore } from '@/store/authStore';
 import axios from "axios";
-
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { user, login, logout, isLoggedIn } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,15 +18,15 @@ export default function Login() {
       username,
       password
     })
-    .then(function (response) {
-      const token = response.data.token;
-      localStorage.setItem('jwt', token);
+      .then(function (response) {
+      login({ id: response.data.id, name: username, token: response.data.token, refreshToken: response.data.refresh_token});
       console.log("Login successful:", response);
     })
     .catch(function (error) {
       console.log("Login error:", error);
     });
   };
+
 
   return (
     <main className="inline-flex w-full min-h-[100svh] bg-background text-foreground">
