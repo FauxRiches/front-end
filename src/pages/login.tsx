@@ -7,10 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from '@/store/authStore';
 import axios from "axios";
+import { useRouter } from "next/router";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { user, login, logout, isLoggedIn } = useAuthStore();
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +21,8 @@ export default function Login() {
       password
     })
       .then(function (response) {
-      login({ id: response.data.id, name: username, token: response.data.token, refreshToken: response.data.refresh_token});
+        login({ id: response.data.id, name: username, token: response.data.token, refreshToken: response.data.refresh_token });
+        router.push("/discover");
       console.log("Login successful:", response);
     })
     .catch(function (error) {
