@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from "axios";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -12,24 +13,18 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(" http://127.0.0.1:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
+    axios.post("http://127.0.0.1:8000/api/login_check", {
+      username,
+      password
+    })
+    .then(function (response) {
+      const token = response.data.token;
+      localStorage.setItem('jwt', token);
+      console.log("Login successful:", response);
+    })
+    .catch(function (error) {
+      console.log("Login error:", error);
+    });
   };
 
   return (
@@ -49,7 +44,7 @@ export default function Login() {
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6 mt-10">
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="email">Adresse email</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               name="email"
