@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from '@/store/authStore';
-import axios from "axios";
 import { useRouter } from "next/router";
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -21,15 +21,18 @@ export default function Login() {
       password
     })
       .then(function (response) {
+        localStorage.setItem('token', response.data.token);
         login({ id: response.data.id, name: username, token: response.data.token, refreshToken: response.data.refresh_token });
         router.push("/discover");
-      console.log("Login successful:", response);
     })
     .catch(function (error) {
       console.log("Login error:", error);
     });
   };
 
+  if (isLoggedIn()) {
+    router.push("/discover");
+  }
 
   return (
     <main className="inline-flex w-full min-h-[100svh] bg-background text-foreground">
