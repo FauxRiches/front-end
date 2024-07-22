@@ -25,8 +25,31 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+interface Song {
+  id: number;
+  title: string;
+  artist: string;
+  album: string;
+  status: string;
+}
+
 export default function Dashboard() {
+  const [songs, setSongs] = useState<Song[]>([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/songs")
+      .then((response) => {
+        setSongs(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching songs", error);
+      });
+  }, []);
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <Header />
@@ -36,7 +59,7 @@ export default function Dashboard() {
             <CardHeader>
               <CardTitle>Songs</CardTitle>
               <CardDescription>
-                Here are the latest songs added to your account.
+                Here is a list of all the available songs.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -46,10 +69,13 @@ export default function Dashboard() {
                     <TableHead className="hidden w-[100px] sm:table-cell">
                       <span className="sr-only">Image</span>
                     </TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Artist</TableHead>
                     <TableHead className="hidden md:table-cell">
-                      Unlocked at
+                      Album
+                    </TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Status
                     </TableHead>
                     <TableHead>
                       <span className="sr-only">Actions</span>
@@ -57,45 +83,56 @@ export default function Dashboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell className="hidden sm:table-cell">
-                      <Image
-                        alt="Product image"
-                        className="aspect-square rounded-md object-cover"
-                        height="64"
-                        src="/images/logo.webp"
-                        width="64"
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      Laser Lemonade Machine
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">Avalible</Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      2023-07-12 10:42 AM
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            aria-haspopup="true"
-                            size="icon"
-                            variant="ghost"
-                          >
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>Download</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
+                  {songs.length > 0 ? (
+                    songs.map((song) => (
+                      <TableRow key={song.id}>
+                        <TableCell className="hidden sm:table-cell">
+                          <Image
+                            alt="Product image"
+                            className="aspect-square rounded-md object-cover"
+                            height="64"
+                            src="/images/logo.webp"
+                            width="64"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          {song.title}
+                        </TableCell>
+                        <TableCell>{song.artist}</TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          {song.album}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <Badge variant="outline"> {song.status}</Badge>
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuItem>Download</DropdownMenuItem>
+                              <DropdownMenuItem>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center">
+                        No songs
+                      </TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </CardContent>
