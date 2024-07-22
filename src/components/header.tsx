@@ -1,6 +1,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useAuthStore } from '@/store/authStore';
+import { useRouter } from "next/router";
 
 import { Menu, CircleUser } from "lucide-react";
 import ThemeSelector from "@/components/theme-selector";
@@ -14,7 +16,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useEffect } from "react";
 export default function Header() {
+  const { user, login, logout, isLoggedIn } = useAuthStore();
+  const router = useRouter();
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      router.push('/login');
+    }
+  }, [router, isLoggedIn]);
+
+  const logoutUser = () => {
+    logout();
+    router.push("/login");
+  };
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -90,7 +105,9 @@ export default function Header() {
           <DropdownMenuSeparator />
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={logoutUser}
+            >Logout</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

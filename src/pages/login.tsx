@@ -21,7 +21,6 @@ export default function Login() {
       password
     })
       .then(function (response) {
-        localStorage.setItem('token', response.data.token);
         login({ id: response.data.id, name: username, token: response.data.token, refreshToken: response.data.refresh_token });
         router.push("/dashboard");
     })
