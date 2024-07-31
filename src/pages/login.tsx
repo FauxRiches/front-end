@@ -21,9 +21,8 @@ export default function Login() {
       password
     })
       .then(function (response) {
-        localStorage.setItem('token', response.data.token);
         login({ id: response.data.id, name: username, token: response.data.token, refreshToken: response.data.refresh_token });
-        router.push("/discover");
+        router.push("/dashboard");
     })
     .catch(function (error) {
       console.log("Login error:", error);
@@ -31,7 +30,7 @@ export default function Login() {
   };
 
   if (isLoggedIn()) {
-    router.push("/discover");
+    router.push("/dashboard");
   }
 
   return (
